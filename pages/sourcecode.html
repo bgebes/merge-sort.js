@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="../assets/highlight/styles/github-dark-dimmed.min.css"
+    />
+    <title>Merge Sort</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <aside class="col-2 text-light bg-orange" style="min-height: 100vh">
+          <div class="container">
+            <div class="mt-5 text-center">
+              <img
+                src="https://avatars.githubusercontent.com/u/72809874?v=4"
+                alt="Avatar"
+                class="rounded-circle w-50 mx-auto d-block"
+              />
+              <div class="lead">Berkay Gebeş</div>
+              <a
+                class="small text-white-50 text-decoration-none"
+                href="https://github.com/bgebes"
+                >@bgebes</a
+              >
+            </div>
+            <div class="mt-1 text-center lead">Junior Front-End Developer</div>
+            <hr />
+
+            <div class="mt-1">
+              <div class="text-center h5">Dizi ve Sıralama Algoritması</div>
+              <div class="text-center small">
+                <kbd>[16,21,11,8,12,22] -> Merge Sort</kbd>
+              </div>
+            </div>
+            <hr />
+            <div class="mt-1">
+              <div class="text-center h4">Ödev</div>
+              <ol class="mt-3">
+                <li>
+                  Verilen dizinin sıralama algoritması türüne göre aşamalarını
+                  yazınız.
+                </li>
+                <li>Big-O gösterimini yazınız.</li>
+              </ol>
+            </div>
+            <hr />
+            <div class="mt-3">
+              <a
+                href="../pages/sourcecode.html"
+                class="small text-decoration-none text-white-50 ms-3 col"
+                >Kaynak Kodu</a
+              >
+              <a
+                href="https://github.com/bgebes/insertion-sort.js"
+                class="small text-decoration-none text-white-50 ms-3 col"
+                >Github Repository</a
+              >
+              <a
+                href="https://github.com/bgebes"
+                class="small text-decoration-none text-white-50 ms-3 col"
+                >Github Hesabım</a
+              >
+              <a
+                href="https://github.com/bgebes/insertion-sort.js/blob/main/LICENSE"
+                class="small text-decoration-none text-white-50 ms-3 col"
+                >LICENSE</a
+              >
+            </div>
+          </div>
+        </aside>
+        <main class="col-10">
+          <div class="container mt-5">
+            <div class="row">
+              <div class="text-orange h3 col-10">
+                Merge Sort(Birleştirme Sıralaması)
+              </div>
+              <a
+                class="text-orange h4 col-2 text-decoration-none"
+                href="../index.html"
+                >Ödeve geri dön</a
+              >
+            </div>
+            <pre class="mt-5">
+<code class="language-javascript">function merge(arr, l, m, r) {
+  const [leftSubArray, rightSubArray] = [
+    arr.slice(l, m + 1),
+    arr.slice(m + 1, r + 1),
+  ];
+  const [leftSize, rightSize] = [m - l + 1, r - m];
+
+  let [i, j, k] = [0, 0, l];
+
+  for (; i < leftSize && j < rightSize; k++) {
+    arr[k] =
+      leftSubArray[i] <= rightSubArray[j] ? leftSubArray[i] : rightSubArray[j];
+    leftSubArray[i] <= rightSubArray[j] ? i++ : j++;
+  }
+  for (; i < leftSize; i++, k++) {
+    arr[k] = leftSubArray[i];
+  }
+  for (; j < rightSize; j++, k++) {
+    arr[k] = rightSubArray[j];
+  }
+}
+
+function sort(arr, l, r) {
+  if (l >= r) {
+    return;
+  }
+  const m = l + Math.floor((r - l) / 2);
+
+  sort(arr, l, m);
+  sort(arr, m + 1, r);
+  merge(arr, l, m, r);
+}
+
+function MergeSort(arr) {
+  const [sArr, tStart] = [[...arr], Date.now()];
+
+  sort(sArr, 0, sArr.length - 1);
+
+  const tEnd = Date.now();
+
+  const processTime = `${tEnd - tStart}ms`;
+  return { array: sArr, processTime };
+}
+
+export default MergeSort;
+</code></pre>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="../assets/highlight/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
